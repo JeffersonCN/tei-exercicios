@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Artigo;
 use Illuminate\Http\Request;
 
 class ArtigoController extends Controller
@@ -13,16 +12,6 @@ class ArtigoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -41,21 +30,10 @@ class ArtigoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Artigo  $artigo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Artigo $artigo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Artigo  $artigo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Artigo $artigo)
+    public function show($id)
     {
         //
     }
@@ -64,10 +42,10 @@ class ArtigoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Artigo  $artigo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artigo $artigo)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +53,10 @@ class ArtigoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Artigo  $artigo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Artigo $artigo)
+    public function destroy($id)
     {
         //
     }
