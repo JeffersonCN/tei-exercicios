@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Autor;
 
 class AutorController extends Controller
 {
@@ -13,7 +14,7 @@ class AutorController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Autor::all());
     }
 
     /**
@@ -24,7 +25,10 @@ class AutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $novoAutor = new Autor($request->all());
+        $novoAutor->save();
+
+        return response()->json($novoAutor, 201);
     }
 
     /**
@@ -35,7 +39,8 @@ class AutorController extends Controller
      */
     public function show($id)
     {
-        //
+        $autor = Autor::find($id);
+        return response()->json($autor, $autor ? 200 : 404);
     }
 
     /**
@@ -47,7 +52,16 @@ class AutorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $autor = Autor::find($id);
+
+        if (!$autor)
+        {
+            return response()->json([], 404);
+        }
+
+        $autor->update($request->all());
+
+        return response()->json($autor);
     }
 
     /**
@@ -58,6 +72,15 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $autor = Autor::find($id);
+
+        if (!$autor)
+        {
+            return response()->json([], 404);
+        }
+
+        Autor::destroy($id);
+
+        response()->json($autor, 204);
     }
 }

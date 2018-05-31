@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Artigo;
 
 class ArtigoController extends Controller
 {
@@ -13,7 +14,7 @@ class ArtigoController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Artigo::all());
     }
 
     /**
@@ -24,7 +25,10 @@ class ArtigoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $novoArtigo = new Artigo($request->all());
+        $novoArtigo->save();
+
+        return response()->json($novoArtigo, 201);
     }
 
     /**
@@ -35,7 +39,8 @@ class ArtigoController extends Controller
      */
     public function show($id)
     {
-        //
+        $artigo = Artigo::find($id);
+        return response()->json($artigo, $artigo ? 200 : 404);
     }
 
     /**
@@ -47,7 +52,16 @@ class ArtigoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $artigo = Artigo::find($id);
+
+        if (!$artigo)
+        {
+            return response()->json([], 404);
+        }
+
+        $artigo->update($request->all());
+
+        return response()->json($artigo);
     }
 
     /**
@@ -58,6 +72,15 @@ class ArtigoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $artigo = Artigo::find($id);
+
+        if (!$artigo)
+        {
+            return response()->json([], 404);
+        }
+
+        Artigo::destroy($id);
+
+        response()->json($artigo, 204);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Categoria;
 
 class CategoriaController extends Controller
 {
@@ -13,7 +14,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Categoria::all());
     }
 
     /**
@@ -24,7 +25,10 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $novaCategoria = new Categoria($request->all());
+        $novaCategoria->save();
+
+        return response()->json($novaCategoria, 201);
     }
 
     /**
@@ -35,7 +39,8 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        return response()->json($categoria, $categoria ? 200 : 404);
     }
 
     /**
@@ -47,7 +52,16 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::find($id);
+
+        if (!$categoria)
+        {
+            return response()->json([], 404);
+        }
+
+        $categoria->update($request->all());
+
+        return response()->json($categoria);
     }
 
     /**
@@ -58,6 +72,15 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::find($id);
+
+        if (!$categoria)
+        {
+            return response()->json([], 404);
+        }
+
+        Categoria::destroy($id);
+
+        response()->json($categoria, 204);
     }
 }
